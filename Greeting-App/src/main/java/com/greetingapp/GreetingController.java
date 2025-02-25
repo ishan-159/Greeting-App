@@ -3,7 +3,10 @@ package com.greetingapp;
 import com.greetingapp.greetingservice.GreetingService;
 import com.greetingapp.model.Greetings;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/greeting")
@@ -48,6 +51,10 @@ public class GreetingController {
         return  greetingService.getPersonalizedGreeting(firstName, lastName) ;
     }
 
-
-
+    //UC5
+    @GetMapping("/{id}")
+    public ResponseEntity<Greetings> getGreetingById(@PathVariable Long id) {
+        Greetings greeting = greetingService.getGreetingById(id);
+        return ResponseEntity.ok(greeting);
+    }
 }
