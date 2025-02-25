@@ -3,7 +3,15 @@ package com.greetingapp.greetingservice;
 import com.greetingapp.model.Greetings;
 import com.greetingapp.repository.GreetingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -48,6 +56,13 @@ public class GreetingService {
     //UC6
     public List<Greetings> getAllGreetings() {
         return greetingRepository.findAll();
+    }
+    //UC7
+    public Greetings updateGreeting(Long id, String newMessage) {
+        Greetings existingGreeting = greetingRepository.findById(id).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, "Greeting not found with ID : " + id));
+
+        existingGreeting.setMessage(newMessage);
+        return greetingRepository.save(existingGreeting);
     }
 }
 
