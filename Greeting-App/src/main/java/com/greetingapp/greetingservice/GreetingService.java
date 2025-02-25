@@ -45,5 +45,9 @@ public class GreetingService {
     public Greetings getGreetingById(Long id){
         return greetingRepository.findById(id).orElseThrow(() ->new RuntimeException("Greeting not found ID : " + id));
     }
+    //UC6
+    public List<Greetings> getAllGreetings() {
+        return greetingRepository.findAll();
+    }
 }
 
