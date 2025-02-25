@@ -70,4 +70,10 @@ public class GreetingController {
         Greetings updateGreeting = greetingService.updateGreeting(id, newMessage);
         return ResponseEntity.ok(updateGreeting);
     }
+    //UC8
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteGreeting(@PathVariable Long id){
+        greetingService.deleteGreeting(id);
+        return ResponseEntity.ok("Greeting with id " + id + " has been deleted");
+    }
 }
